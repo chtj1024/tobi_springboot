@@ -1,0 +1,35 @@
+# daily-commit.yml 파일 내용
+
+name: Auto Daily Commit 🤖
+
+# 스케줄 설정: 매일 UTC 00:00에 실행 (한국 시간 기준 오전 9시)
+# crontab 문법을 사용합니다. 원하는 시간으로 변경 가능합니다.
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  # 수동으로 워크플로를 실행하고 싶을 때 사용 (선택 사항)
+  workflow_dispatch:
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 저장소 체크아웃
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. 커밋 스크립트 실행
+      - name: Create empty commit
+        run: |
+          # Git 사용자 정보 설정 (Actions 봇 정보 사용)
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          
+          # 현재 날짜와 시간을 커밋 메시지에 추가하여 매번 고유한 커밋 생성
+          COMMIT_MESSAGE="Daily auto commit on $(date +'%Y-%m-%d %H:%M:%S')"
+
+          # 빈 커밋 생성 (--allow-empty 옵션)
+          git commit --allow-empty -m "$COMMIT_MESSAGE"
+          
+          # GitHub에 푸시
+          git push
