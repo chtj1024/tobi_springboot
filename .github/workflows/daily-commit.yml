@@ -25,9 +25,9 @@ jobs:
       # 2. 커밋 스크립트 실행
       - name: Create empty commit
         run: |
-          # Git 사용자 정보 설정 (Actions 봇 정보 사용)
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          # Git 사용자 정보 설정 (사용자 정보를 사용해야 잔디가 심어진다)
+          git config --global user.email "chlqnftkwh@naver.com"
+          git config --global user.name "chtj1024"
           
           # 현재 날짜와 시간을 커밋 메시지에 추가하여 매번 고유한 커밋 생성
           COMMIT_MESSAGE="Daily auto commit on $(date +'%Y-%m-%d %H:%M:%S')"
